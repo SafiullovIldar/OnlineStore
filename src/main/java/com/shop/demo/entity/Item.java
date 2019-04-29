@@ -16,4 +16,10 @@ public class Item {
     private Integer price;
     private Integer availability;
 
+    public Item(Item item) {
+        this.name = item.getName();
+        this.price = item.getPrice();
+        this.availability = item.getAvailability();
+    }
+
 }
