@@ -33,7 +33,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    public void createCustomer() {
+    public void ShouldReturnExpectedCustomerIfItWasCreated() {
         CustomerDto expectedCustomer = Util.createTestCustomer("3");
         customerService.createCustomer(expectedCustomer);
 
