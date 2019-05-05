@@ -41,6 +41,7 @@ public class OrderServiceImpl implements OrderService {
 
         Purchase purchase = new Purchase();
         purchase.setId(UUID.randomUUID().toString());
+
         purchase.setAmount(amount);
         purchase.setCreateDate(new Date());
 
@@ -56,10 +57,6 @@ public class OrderServiceImpl implements OrderService {
 
         ShoppingCartDto shoppingCartDtoById = shoppingCartService.getShoppingCartDtoById(customerId);
         purchase.setShoppingCartId(shoppingCartDtoById.getId());
-
-
-
-
 
         purchaseDao.createPurchase(purchase);
 

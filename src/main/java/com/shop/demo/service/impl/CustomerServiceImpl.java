@@ -29,7 +29,9 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void createCustomer(CustomerDto dto) {
         Customer customer = conversion.convert(dto, Customer.class);
-        customer.setId(UUID.randomUUID().toString());
+        if (dto.getId() == null) {
+            customer.setId(UUID.randomUUID().toString());
+        }
 
         transactionalManager.startTransaction();
 

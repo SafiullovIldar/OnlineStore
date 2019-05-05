@@ -44,7 +44,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
     }
 
     @Override
-    public Purchase getPurchaseById(String cus_id, String pur_id) {
+    public Purchase getPurchaseById(String customerId, String purchaseId) {
         Purchase purchase = null;
 
         try (Connection connection = dataSource.getConnection()){
@@ -60,8 +60,8 @@ public class PurchaseDaoImpl implements PurchaseDao {
                                 "   AND sc.customer_id = c.id" +
                                 "   AND c.id = ?;");
 
-            preparedStatement.setString(1, cus_id);
-            preparedStatement.setString(2, pur_id);
+            preparedStatement.setString(1, customerId);
+            preparedStatement.setString(2, purchaseId);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -81,7 +81,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
     }
 
     @Override
-    public List<Purchase> getPurchases(String id) {
+    public List<Purchase> getPurchases(String customerId) {
         List<Purchase> purchases = new ArrayList<>();
 
         try {
@@ -98,7 +98,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
                                 "   AND c.id = ?" +
                                 "   AND p.status = ?;");
 
-            initPurchases(id, INIT, purchases, preparedStatement);
+            initPurchases(customerId, INIT, purchases, preparedStatement);
 
         } catch (SQLException e) {
             e.printStackTrace();

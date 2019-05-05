@@ -40,7 +40,14 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void createItems(List<Item> items, String catalogId) throws SQLException {
+    public void createItems(List<ItemDto> itemsDto, String catalogId) throws SQLException {
+        List<Item> items = new ArrayList<>();
+        if (itemsDto != null) {
+            for (ItemDto itemDto : itemsDto) {
+                items.add(conversion.convert(itemDto, Item.class));
+            }
+        }
+
         itemDao.createItems(items, catalogId);
     }
 
@@ -51,7 +58,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void deleteItem(String itemId) {
+    public void deleteItem(String itemId) throws SQLException {
         itemDao.deleteItem(itemId);
     }
 

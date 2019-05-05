@@ -6,7 +6,6 @@ import com.shop.demo.dto.PurchaseDto;
 import com.shop.demo.dto.ShoppingCartDto;
 import com.shop.demo.entity.Purchase;
 import com.shop.demo.entity.ShoppingCart;
-import com.shop.demo.service.OrderService;
 import com.shop.demo.service.ShoppingCartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +47,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public void createShoppingCart(ShoppingCartDto dto, String customerId) throws SQLException {
         ShoppingCart shoppingCart = conversion.convert(dto, ShoppingCart.class);
-        shoppingCart.setId(UUID.randomUUID().toString());
+        if (dto.getId() == null) {
+            shoppingCart.setId(UUID.randomUUID().toString());
+        }
 
         shoppingCartDao.createShoppingCart(shoppingCart, customerId );
-
     }
 }

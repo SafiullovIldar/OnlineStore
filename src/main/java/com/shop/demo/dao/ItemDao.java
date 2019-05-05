@@ -9,7 +9,7 @@ import java.util.List;
 @Component
 public interface ItemDao {
 
-    void deleteItem(String item_id);
+    void deleteItem(String item_id) throws SQLException;
     void createItem(Item item, String catalogId);
     void createItems(List<Item> items, String catalogId) throws SQLException;
     List<Item> getItemsFromCatalog(String catalog_id) ;

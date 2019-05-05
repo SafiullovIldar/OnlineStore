@@ -4,15 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class ShoppingCart {
+@NoArgsConstructor
+public class Company {
 
     private String id;
-    private List<Purchase> purchases;
+    private String name;
 }

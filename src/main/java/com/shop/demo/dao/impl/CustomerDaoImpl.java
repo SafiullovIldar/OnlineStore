@@ -31,8 +31,8 @@ public class CustomerDaoImpl implements CustomerDao {
 
         preparedStatement.setString(1, customer.getId());
         preparedStatement.setString(2, customer.getName());
-        preparedStatement.setString(3, customer.getAddress());
-        preparedStatement.setString(4, customer.getEmail());
+        preparedStatement.setString(3, customer.getEmail());
+        preparedStatement.setString(4, customer.getAddress());
         preparedStatement.setString(5, customer.getPhoneNumber());
 
         preparedStatement.executeUpdate();

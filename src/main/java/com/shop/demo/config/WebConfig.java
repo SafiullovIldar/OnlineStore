@@ -17,6 +17,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addConverter(new ItemDtoToItem());
         registry.addConverter(new PurchaseDtoToPurchase());
         registry.addConverter(new ShoppingCartDtoToShoppingCart());
+        registry.addConverter(new CompanyDtoToCompany());
+        registry.addConverter(new CreditCardDtoToCreditCard());
 
         registry.addConverter(new PromoCodeToPromoCodeDto());
         registry.addConverter(new CatalogToCatalogDto());
@@ -24,6 +26,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addConverter(new ItemToItemDto());
         registry.addConverter(new PurchaseToPurchaseDto());
         registry.addConverter(new ShoppingCartToShoppingCartDto());
+        registry.addConverter(new CompanyToCompanyDto());
+        registry.addConverter(new CreditCardToCreditCardDto());
     }
 }
 

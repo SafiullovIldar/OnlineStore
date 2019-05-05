@@ -15,6 +15,7 @@ public class Item {
     private String name;
     private Integer price;
     private Integer availability;
+    private String string;
 
     public Item(Item item) {
         this.name = item.getName();

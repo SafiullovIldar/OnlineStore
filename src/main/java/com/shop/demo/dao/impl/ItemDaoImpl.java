@@ -23,23 +23,17 @@ public class ItemDaoImpl implements ItemDao {
     private final TransactionalManager transactionalManager;
 
     @Override
-    public void deleteItem(String item_id) {
+    public void deleteItem(String itemId) throws SQLException {
 
-        Connection connection = null;
+        Connection connection = dataSource.getConnection();
 
-        try {
-            connection = transactionalManager.getConnection();
+        PreparedStatement preparedStatement = connection
+                .prepareStatement("DELETE FROM item WHERE id = ?");
 
-            PreparedStatement preparedStatement = connection
-                    .prepareStatement("DELETE FROM item WHERE id = ?");
+        preparedStatement.setString(1, itemId);
 
-            preparedStatement.setString(1, item_id);
+        preparedStatement.executeUpdate();
 
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -51,8 +45,8 @@ public class ItemDaoImpl implements ItemDao {
 
             preparedStatement.setString(1, item.getId());
             preparedStatement.setString(2, item.getName());
-            preparedStatement.setInt(3, item.getAvailability());
-            preparedStatement.setInt(4, item.getPrice());
+            preparedStatement.setInt(3, item.getPrice());
+            preparedStatement.setInt(4, item.getAvailability());
             preparedStatement.setString(5, catalogId);
 
             preparedStatement.executeUpdate();

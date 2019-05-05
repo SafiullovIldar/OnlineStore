@@ -10,8 +10,7 @@ import java.util.List;
 public interface CatalogDao {
 
     void createCatalog(Catalog catalog) throws SQLException;
-    void deleteCatalog(String catalog_id);
+    void deleteCatalog(String catalogId) throws SQLException;
     List<Catalog> getAllCatalogs();
-    Catalog getCatalogById(String id);
-
+    Catalog getCatalogById(String catalogId);
 }

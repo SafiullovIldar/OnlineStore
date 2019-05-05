@@ -9,8 +9,8 @@ import java.util.List;
 public interface PurchaseDao {
 
     void createPurchase(Purchase purchase);
-    Purchase getPurchaseById(String cus_id, String pur_id);
-    List<Purchase> getPurchases(String id);
-    List<Purchase> getPurchaseHistory(String cus_id);
+    Purchase getPurchaseById(String customerId, String purchaseId);
+    List<Purchase> getPurchases(String customerId);
+    List<Purchase> getPurchaseHistory(String customerId);
 
 }

@@ -29,13 +29,14 @@ public class CatalogServiceImpl implements CatalogService {
     @Override
     public void createCatalog(CatalogDto dto) {
         Catalog catalog = conversion.convert(dto, Catalog.class);
-        catalog.setId(UUID.randomUUID().toString());
-
+        if (dto.getId() == null) {
+            catalog.setId(UUID.randomUUID().toString());
+        }
         transactionalManager.startTransaction();
 
         try {
             catalogDao.createCatalog(catalog);
-            itemService.createItems(catalog.getItems(), catalog.getId());
+            itemService.createItems(dto.getItems(), catalog.getId());
             transactionalManager.commit();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -45,14 +46,23 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Override
     public void deleteCatalog(String catalogId) {
-        CatalogDto catalogDto = getCatalogById(catalogId);
-        List<ItemDto> catalogItems = catalogDto.getItems();
+        List<ItemDto> catalogItems = itemService.getItemsFromCatalog(catalogId);
 
-        for (ItemDto catalogItem : catalogItems) {
-            itemService.deleteItem(catalogItem.getId());
+        transactionalManager.startTransaction();
+
+        try {
+            for (ItemDto catalogItem : catalogItems) {
+                itemService.deleteItem(catalogItem.getId());
+            }
+
+            catalogDao.deleteCatalog(catalogId);
+            transactionalManager.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            transactionalManager.rollBack();
         }
 
-        catalogDao.deleteCatalog(catalogId);
+
     }
 
     @Override
@@ -73,7 +83,9 @@ public class CatalogServiceImpl implements CatalogService {
         CatalogDto catalogDto = conversion.convert(catalog, CatalogDto.class);
 
         List<ItemDto> itemsDto = itemService.getItemsFromCatalog(catalogId);
-        catalogDto.setItems(itemsDto);
+        if (catalogDto != null) {
+            catalogDto.setItems(itemsDto);
+        }
 
         return catalogDto;
     }

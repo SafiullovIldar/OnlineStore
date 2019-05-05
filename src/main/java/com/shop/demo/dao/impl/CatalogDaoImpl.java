@@ -41,20 +41,17 @@ public class CatalogDaoImpl implements CatalogDao {
     }
 
     @Override
-    public void deleteCatalog(String catalog_id) {
+    public void deleteCatalog(String catalogId) throws SQLException {
 
-        try (Connection connection = dataSource.getConnection()){
+        Connection connection = transactionalManager.getConnection();
 
-            PreparedStatement preparedStatement = connection
-                    .prepareStatement("DELETE FROM catalog WHERE id = ?");
+        PreparedStatement preparedStatement = connection
+                .prepareStatement("DELETE FROM catalog WHERE id = ?");
 
-            preparedStatement.setString(1, catalog_id);
+        preparedStatement.setString(1, catalogId);
 
-            preparedStatement.executeUpdate();
+        preparedStatement.executeUpdate();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -108,5 +105,4 @@ public class CatalogDaoImpl implements CatalogDao {
 
         return catalog;
     }
-
 }
