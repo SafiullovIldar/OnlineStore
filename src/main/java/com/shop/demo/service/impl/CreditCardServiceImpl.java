@@ -28,4 +28,11 @@ public class CreditCardServiceImpl implements CreditCardService {
         CreditCardDto dto = conversion.convert(creditCard, CreditCardDto.class);
         return dto;
     }
+
+    @Override
+    public CreditCardDto getCreditCardByCustomerId(String customerId) {
+        CreditCard creditCard = creditCardDao.getCreditCardByCustomerId(customerId);
+        CreditCardDto dto = conversion.convert(creditCard, CreditCardDto.class);
+        return dto;
+    }
 }

@@ -14,5 +14,6 @@ public interface ItemDao {
     void createItems(List<Item> items, String catalogId) throws SQLException;
     List<Item> getItemsFromCatalog(String catalog_id) ;
     Item getItemById(String catalog_id, String item_id);
+    Item getItemById(String item_id);
 
 }

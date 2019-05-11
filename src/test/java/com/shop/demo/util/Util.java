@@ -82,7 +82,7 @@ public class Util {
         }
         CreditCardDto creditCard = new CreditCardDto();
         creditCard.setId(creditCardId);
-        creditCard.setCardNumber(12345L);
+        creditCard.setCardNumber("12345");
         creditCard.setCvsNumber(555L);
         creditCard.setExpirationDate(date);
         creditCard.setCustomerId(customerId);
@@ -122,7 +122,7 @@ public class Util {
         dto.setPromoCodeId("1");
         dto.setItemId("1");
         dto.setStatus(PurchaseStatus.INIT);
-        dto.setAmount(50);
+        dto.setAmount(5);
         dto.setCreateDate(date);
         return dto;
     }

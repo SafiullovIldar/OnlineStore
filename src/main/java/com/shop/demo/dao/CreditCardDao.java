@@ -8,4 +8,5 @@ public interface CreditCardDao {
 
     void createCreditCard(CreditCard creditCard);
     CreditCard getCreditCard(String creditCardId);
+    CreditCard getCreditCardByCustomerId(String customerId);
 }

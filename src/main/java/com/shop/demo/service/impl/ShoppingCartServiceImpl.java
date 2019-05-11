@@ -2,12 +2,19 @@ package com.shop.demo.service.impl;
 
 import com.shop.demo.dao.PurchaseDao;
 import com.shop.demo.dao.ShoppingCartDao;
+import com.shop.demo.dto.ItemDto;
 import com.shop.demo.dto.PurchaseDto;
 import com.shop.demo.dto.ShoppingCartDto;
 import com.shop.demo.entity.Purchase;
 import com.shop.demo.entity.ShoppingCart;
+import com.shop.demo.enums.PurchaseStatus;
+import com.shop.demo.payment.CreditCardStrategy;
+import com.shop.demo.payment.PayPalStrategy;
+import com.shop.demo.payment.PaymentStrategy;
+import com.shop.demo.service.ItemService;
 import com.shop.demo.service.ShoppingCartService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
@@ -19,11 +26,13 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@Slf4j
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     private final ShoppingCartDao shoppingCartDao;
     private final ConversionService conversion;
     private final PurchaseDao purchaseDao;
+    private final ItemService itemService;
 
     @Override
     public ShoppingCartDto getShoppingCartDtoById(String customerId) {
@@ -52,5 +61,39 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         }
 
         shoppingCartDao.createShoppingCart(shoppingCart, customerId );
+    }
+
+    @Override
+    public void pay(String customerId, String paymentMethod) {
+        PaymentStrategy paymentStrategy = null;
+
+        List<Purchase> purchases = purchaseDao.getPurchases(customerId);
+        int amount = 0;
+
+        for (Purchase purchase : purchases) {
+            String itemId = purchase.getItemId();
+            ItemDto item = itemService.getItemById(itemId);
+            Integer price = item.getPrice();
+
+            if (item.getAvailability() < purchase.getAmount()) {
+                log.error("There is not enough availability for " + item.getName());
+                continue;
+            }
+
+            amount += price * purchase.getAmount();
+
+            item.setAvailability(item.getAvailability() - purchase.getAmount());
+            purchase.setStatus(PurchaseStatus.COMPLETED);
+        }
+
+        if (paymentMethod.equals("1")){
+            paymentStrategy = new CreditCardStrategy();
+            paymentStrategy.pay(amount);
+        } else if (paymentMethod.equals("2")){
+            paymentStrategy = new PayPalStrategy();
+            paymentStrategy.pay(amount);
+        } else {
+            log.error("There is no payment information");
+        }
     }
 }

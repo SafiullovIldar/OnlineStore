@@ -40,6 +40,13 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public ItemDto getItemById(String itemId) {
+        Item itemById = itemDao.getItemById( itemId);
+        ItemDto itemDto = conversion.convert(itemById, ItemDto.class);
+        return itemDto;
+    }
+
+    @Override
     public void createItems(List<ItemDto> itemsDto, String catalogId) throws SQLException {
         List<Item> items = new ArrayList<>();
         if (itemsDto != null) {

@@ -84,8 +84,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
     public List<Purchase> getPurchases(String customerId) {
         List<Purchase> purchases = new ArrayList<>();
 
-        try {
-            Connection connection = dataSource.getConnection();
+        try (Connection connection = dataSource.getConnection()) {
 
             PreparedStatement preparedStatement = connection
                     .prepareStatement(

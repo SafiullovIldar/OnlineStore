@@ -12,7 +12,7 @@ import java.util.Date;
 public class CreditCardDto {
 
     private String id;
-    private Long cardNumber;
+    private String cardNumber;
     private Date expirationDate;
     private Long cvsNumber;
     private String customerId;

@@ -15,5 +15,6 @@ public interface ItemService {
     void createItems(List<ItemDto> items, String catalogId) throws SQLException;
     void createItem(ItemDto itemDto, String catalogId);
     void deleteItem(String itemId) throws SQLException;
+    public ItemDto getItemById(String itemId);
 
 }
