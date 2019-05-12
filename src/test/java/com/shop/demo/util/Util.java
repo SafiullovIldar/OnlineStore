@@ -21,10 +21,19 @@ public class Util {
     @Autowired
     private DataSource dataSource;
 
-
     public void setUp() {
         try (Connection connection = dataSource.getConnection();) {
             Statement statement = connection.createStatement();
+
+            statement.execute("DELETE FROM company");
+            statement.execute("DELETE FROM catalog");
+            statement.execute("DELETE FROM customer");
+            statement.execute("DELETE FROM credit_card");
+            statement.execute("DELETE FROM item");
+            statement.execute("DELETE FROM promo_code");
+            statement.execute("DELETE FROM shopping_cart");
+            statement.execute("DELETE FROM purchase");
+
             statement.execute("INSERT INTO company VALUES ('1', 'Ebay');");
             statement.execute("INSERT INTO catalog VALUES" +
                     "('1', 'Electronics', '1')," +
@@ -52,24 +61,6 @@ public class Util {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public void tearDown() {
-
-        try (Connection connection = dataSource.getConnection()){
-            Statement statement = connection.createStatement();
-            statement.execute("DELETE FROM company");
-            statement.execute("DELETE FROM catalog");
-            statement.execute("DELETE FROM customer");
-            statement.execute("DELETE FROM credit_card");
-            statement.execute("DELETE FROM item");
-            statement.execute("DELETE FROM promo_code");
-            statement.execute("DELETE FROM shopping_cart");
-            statement.execute("DELETE FROM purchase");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
     }
 
     public static CreditCardDto createTestCreditCard(String creditCardId, String customerId) {

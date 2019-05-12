@@ -28,11 +28,6 @@ public class CompanyServiceTest {
         util.setUp();
     }
 
-    @After
-    public void tearDown() {
-        util.tearDown();
-    }
-
     @Test
     public void ShouldGetExpectedCompanyIfItWasCreated() {
         CompanyDto expectedCompany = Util.createTestCompany("2");

@@ -28,11 +28,6 @@ public class CreditCardServiceTest {
         util.setUp();
     }
 
-    @After
-    public void tearDown() {
-        util.tearDown();
-    }
-
     @Test
     public void ShouldGetExpectedCreditCartIfItWasCreated() {
         CreditCardDto expectedCreditCard = Util.createTestCreditCard("3", "1");

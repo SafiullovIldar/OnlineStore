@@ -27,11 +27,6 @@ public class PromoCodeServiceTest {
         util.setUp();
     }
 
-    @After
-    public void tearDown() {
-        util.tearDown();
-    }
-
     @Test
     public void ShouldReturnExpectedPromoCodeIfItWasCreated() {
         PromoCodeDto expectedPromoCode = Util.createTestPromoCode("3");

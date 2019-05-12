@@ -27,11 +27,6 @@ public class CustomerServiceTest {
         util.setUp();
     }
 
-    @After
-    public void tearDown() {
-        util.tearDown();
-    }
-
     @Test
     public void ShouldReturnExpectedCustomerIfItWasCreated() {
         CustomerDto expectedCustomer = Util.createTestCustomer("3");

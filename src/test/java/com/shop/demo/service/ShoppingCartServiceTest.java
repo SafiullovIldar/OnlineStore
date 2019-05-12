@@ -30,11 +30,6 @@ public class ShoppingCartServiceTest {
         util.setUp();
     }
 
-    @After
-    public void tearDown() {
-        util.tearDown();
-    }
-
     @Test
     public void ShouldReturnShoppingCartWithExpectedShoppingCartId() {
         String expectedShoppingCartId = "1";

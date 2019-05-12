@@ -28,11 +28,6 @@ public class CatalogServiceTest {
         util.setUp();
     }
 
-    @After
-    public void tearDown() {
-        util.tearDown();
-    }
-
     @Test()
     public void ShouldGetCatalogIfItWasCreated() {
         CatalogDto expectedCatalog = createTestCatalog("3", "5", "6");

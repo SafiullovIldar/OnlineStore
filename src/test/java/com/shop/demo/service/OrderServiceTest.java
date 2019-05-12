@@ -26,11 +26,6 @@ public class OrderServiceTest {
         util.setUp();
     }
 
-    @After
-    public void tearDown() {
-        util.tearDown();
-    }
-
     @Test
     public void ShouldReturnPurchaseWithExpectedPurchaseId() {
         String expectedPurchaseId = "1";

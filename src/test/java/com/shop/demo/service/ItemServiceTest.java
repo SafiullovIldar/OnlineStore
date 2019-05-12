@@ -32,11 +32,6 @@ public class ItemServiceTest {
         util.setUp();
     }
 
-    @After
-    public void tearDown() {
-        util.tearDown();
-    }
-
     @Test
     public void ShouldGetExpectedItemIfItWasCreated() {
         ItemDto expectedItem = Util.createTestItem("5");
